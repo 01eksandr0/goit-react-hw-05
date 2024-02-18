@@ -18,7 +18,7 @@ const HomePage = () => {
   return (
     <div className={css.home}>
       <h1 className={css.title}>Trending today</h1>
-      {movies.length ? <MoviesList movies={movies} /> : "load..."}
+      {movies.length !== 0 && <MoviesList movies={movies} />}
     </div>
   );
 };
