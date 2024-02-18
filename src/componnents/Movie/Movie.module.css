@@ -1,0 +1,8 @@
+.movie {
+  width: 170px;
+  border: 1px solid #111;
+  overflow: hidden;
+  & > img {
+    display: block;
+  }
+}

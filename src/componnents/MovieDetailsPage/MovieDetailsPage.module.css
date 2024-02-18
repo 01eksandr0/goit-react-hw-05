@@ -1,0 +1,37 @@
+.container {
+  padding: 20px;
+}
+.linkBack {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  height: 24px;
+  width: 90px;
+  gap: 3px;
+  background-color: #cfcccc;
+  margin-bottom: 20px;
+}
+.infContainer {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  gap: 20px;
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid #111;
+}
+.textList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.info {
+  padding: 20px 0;
+}
+.linkList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #111;
+  margin-left: 10px;
+}

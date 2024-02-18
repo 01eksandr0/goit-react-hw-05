@@ -1,0 +1,11 @@
+.block {
+  padding: 20px;
+}
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  & > li {
+    list-style-type: none;
+  }
+}
