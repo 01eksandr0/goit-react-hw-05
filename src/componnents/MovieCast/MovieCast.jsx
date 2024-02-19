@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import requests from "../../js/api";
 import { useParams } from "react-router";
 import css from "./MovieCast.module.css";
+import image from "../../img/no-result.jpeg";
 
 const MovieCast = () => {
   const { id } = useParams();
@@ -19,12 +20,16 @@ const MovieCast = () => {
   }, []);
   return (
     <div className={css.block}>
-      {cast.length !== 0 && (
+      {cast.length !== 0 ? (
         <ul className={css.list}>
           {cast.map((i) => (
             <li key={i.id}>
               <img
-                src={"https://image.tmdb.org/t/p/w500" + i.profile_path}
+                src={
+                  i.profile_path
+                    ? "https://image.tmdb.org/t/p/w500" + i.profile_path
+                    : image
+                }
                 alt=""
                 height={120}
                 width={100}
@@ -34,6 +39,8 @@ const MovieCast = () => {
             </li>
           ))}
         </ul>
+      ) : (
+        <p>We don't have any actors for this movie</p>
       )}
     </div>
   );

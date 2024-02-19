@@ -1,12 +1,13 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 import { Suspense, lazy } from "react";
+import NotFound from "./NotFound/NotFound";
 
 const Layout = lazy(() => import("./Layout/Layout"));
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
 const MoviesPage = lazy(() => import("../pages/MoviesPage/MoviesPage"));
 const MovieDetailsPage = lazy(() =>
-  import("./MovieDetailsPage/MovieDetailsPage")
+  import("../pages/MovieDetailsPage/MovieDetailsPage")
 );
 const MovieCast = lazy(() => import("./MovieCast/MovieCast"));
 const MovieReviews = lazy(() => import("./MovieReviews/MovieReviews"));
@@ -26,7 +27,7 @@ const App = () => {
                 element={<MovieReviews />}
               ></Route>
             </Route>
-            <Route path="*" element={<HomePage />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </Suspense>

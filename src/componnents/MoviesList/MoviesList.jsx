@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Movie from "../Movie/Movie";
 import css from "./MoviesList.module.css";
 
-const MoviesList = ({ movies }) => {
+const MoviesList = ({ movies, backLinkHref }) => {
   return (
     <ul className={css.list}>
       {movies.map((item) => (

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import requests from "../../js/api";
 import { FaArrowLeft } from "react-icons/fa";
 import css from "./MovieDetailsPage.module.css";
+import image from "../../img/no-result.jpeg";
 
-const MovieDetailsPage = () => {
+const MovieDetailsPage = ({ backLinkHref }) => {
   const { id } = useParams();
   const [movie, setMovie] = useState({});
+  const navigate = useNavigate();
   useEffect(() => {
     const createData = async () => {
       const response = await requests.getDetailsMovie(id);
@@ -16,15 +18,23 @@ const MovieDetailsPage = () => {
   }, []);
   return (
     <div className={css.container}>
-      <Link to="/" className={css.linkBack}>
+      <button onClick={() => navigate(-1)} className={css.linkBack}>
         <FaArrowLeft /> Go back
-      </Link>
+      </button>
+
       {movie.genres && (
         <div className={css.infContainer}>
-          <img
-            src={"https://image.tmdb.org/t/p/w500" + movie.backdrop_path}
-            alt=""
-          />
+          {
+            <img
+              src={
+                movie.backdrop_path
+                  ? "https://image.tmdb.org/t/p/w500" + movie.backdrop_path
+                  : image
+              }
+              alt=""
+            />
+          }
+
           <div className={css.textList}>
             <h1>{movie.original_title}</h1>
             <p>User Score: {parseInt(movie.vote_average * 10)}%</p>

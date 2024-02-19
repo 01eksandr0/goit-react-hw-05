@@ -5,6 +5,7 @@ import css from "./HomePage.module.css";
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
+
   useEffect(() => {
     const a = async () => {
       try {
