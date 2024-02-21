@@ -7,6 +7,7 @@ import image from "../../img/no-result.jpeg";
 const MovieCast = () => {
   const { id } = useParams();
   const [cast, setCast] = useState([]);
+
   useEffect(() => {
     const addActors = async () => {
       try {

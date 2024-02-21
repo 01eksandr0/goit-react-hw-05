@@ -8,6 +8,8 @@ import image from "../../img/no-result.jpeg";
 const MovieDetailsPage = ({ backLinkHref }) => {
   const { id } = useParams();
   const [movie, setMovie] = useState({});
+  const [pages, setPages] = useState(1);
+  const addPage = () => setPages(pages + 1);
   const navigate = useNavigate();
   useEffect(() => {
     const createData = async () => {
@@ -18,7 +20,7 @@ const MovieDetailsPage = ({ backLinkHref }) => {
   }, []);
   return (
     <div className={css.container}>
-      <button onClick={() => navigate(-1)} className={css.linkBack}>
+      <button onClick={() => navigate(-pages)} className={css.linkBack}>
         <FaArrowLeft /> Go back
       </button>
 
@@ -50,10 +52,14 @@ const MovieDetailsPage = ({ backLinkHref }) => {
       </div>
       <ul className={css.linkList}>
         <li>
-          <Link to={"movies/" + id + "/cast"}>Cast</Link>
+          <Link to={"movies/" + id + "/cast"} onClick={addPage}>
+            Cast
+          </Link>
         </li>
         <li>
-          <Link to={"movies/" + id + "/reviews"}>Reviews</Link>
+          <Link to={"movies/" + id + "/reviews"} onClick={addPage}>
+            Reviews
+          </Link>
         </li>
       </ul>
       <Outlet />

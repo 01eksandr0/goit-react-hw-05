@@ -7,11 +7,14 @@ const buildLinkClass = ({ isActive }) => {
 };
 
 const Header = () => {
+  const toHome = () => {
+    localStorage.clear("movies");
+  };
   return (
     <header className={css.header}>
       <ul className={css.list}>
         <li>
-          <NavLink className={buildLinkClass} to="/">
+          <NavLink className={buildLinkClass} to="/" onClick={toHome}>
             Home
           </NavLink>
         </li>
