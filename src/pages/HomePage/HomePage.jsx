@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import requests from "../../js/api";
-import MoviesList from "../../componnents/MoviesList/MoviesList";
+import MoviesList from "../../components/MoviesList/MoviesList";
 import css from "./HomePage.module.css";
 
 const HomePage = () => {
