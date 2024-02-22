@@ -1,28 +1,40 @@
 import React, { useEffect, useState } from "react";
-import MoviesList from "../../components/MoviesList/MoviesList";
+import MoviesList from "../../components/MovieList/MovieList";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import requests from "../../js/api";
 import { useSearchParams } from "react-router-dom";
+import Loader from "../../components/Loader/Loader";
 
 const Movies = () => {
-  const [movies, setMovies] = useState(() => {
-    const response = JSON.parse(localStorage.getItem("movies")) || [];
-    return response;
-  });
+  const [movies, setMovies] = useState([]);
+  const [isLoader, setLoader] = useState(false);
+  const [value, setValue] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const searchMovies = async (e) => {
+  useEffect(() => {
+    setLoader(true);
+    setSearchParams({ name: value });
+    const searchMovies = async () => {
+      try {
+        const response = await requests.getMoviesByWord(value);
+        setMovies(response.data.results);
+      } catch (error) {
+        alert(error);
+      } finally {
+        setLoader(false);
+      }
+    };
+    searchMovies();
+  }, [value]);
+
+  const changeValue = (e) => {
     e.preventDefault();
-    setSearchParams({ name: e.target.search.value });
-    try {
-      const response = await requests.getMoviesByWord(e.target.search.value);
-      setMovies(response.data.results);
-      localStorage.setItem("movies", JSON.stringify(response.data.results));
-    } catch (error) {}
+    setValue(e.target.search.value);
   };
   return (
     <div>
-      <SearchBar searchMovies={searchMovies} />
+      <SearchBar searchMovies={changeValue} />
+      {isLoader && <Loader />}
       <MoviesList movies={movies} />
     </div>
   );

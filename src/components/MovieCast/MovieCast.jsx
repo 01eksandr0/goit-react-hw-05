@@ -3,24 +3,30 @@ import requests from "../../js/api";
 import { useParams } from "react-router";
 import css from "./MovieCast.module.css";
 import image from "../../img/no-result.jpeg";
+import Loader from "../Loader/Loader";
 
 const MovieCast = () => {
   const { id } = useParams();
   const [cast, setCast] = useState([]);
+  const [isLoader, setLoader] = useState(false);
 
   useEffect(() => {
+    setLoader(true);
     const addActors = async () => {
       try {
         const response = await requests.getCast(id);
         setCast(response.data.cast);
       } catch (error) {
-        console.log(error);
+        alert(error);
+      } finally {
+        setLoader(false);
       }
     };
     addActors();
-  }, []);
+  }, [id]);
   return (
     <div className={css.block}>
+      {isLoader && <Loader />}
       {cast.length !== 0 ? (
         <ul className={css.list}>
           {cast.map((i) => (

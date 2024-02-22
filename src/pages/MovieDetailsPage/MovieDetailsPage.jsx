@@ -1,29 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import requests from "../../js/api";
 import { FaArrowLeft } from "react-icons/fa";
 import css from "./MovieDetailsPage.module.css";
 import image from "../../img/no-result.jpeg";
 
-const MovieDetailsPage = ({ backLinkHref }) => {
+const MovieDetailsPage = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState({});
-  const [pages, setPages] = useState(1);
   const addPage = () => setPages(pages + 1);
-  const navigate = useNavigate();
   useEffect(() => {
     const createData = async () => {
       const response = await requests.getDetailsMovie(id);
       setMovie(response.data);
     };
     createData();
-  }, []);
+  }, [id]);
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? "/movies";
   return (
     <div className={css.container}>
-      <button onClick={() => navigate(-pages)} className={css.linkBack}>
+      <Link to={backLinkHref} className={css.linkBack}>
         <FaArrowLeft /> Go back
-      </button>
-
+      </Link>
       {movie.genres && (
         <div className={css.infContainer}>
           {
@@ -52,12 +57,12 @@ const MovieDetailsPage = ({ backLinkHref }) => {
       </div>
       <ul className={css.linkList}>
         <li>
-          <Link to={"movies/" + id + "/cast"} onClick={addPage}>
+          <Link to={"cast"} onClick={addPage}>
             Cast
           </Link>
         </li>
         <li>
-          <Link to={"movies/" + id + "/reviews"} onClick={addPage}>
+          <Link to={"reviews"} onClick={addPage}>
             Reviews
           </Link>
         </li>

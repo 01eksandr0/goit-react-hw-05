@@ -21,11 +21,8 @@ const App = () => {
             <Route index element={<HomePage />} />
             <Route path="movies" element={<MoviesPage />} />
             <Route path="movies/:id" element={<MovieDetailsPage />}>
-              <Route path="movies/:id/cast" element={<MovieCast />}></Route>
-              <Route
-                path="movies/:id/reviews"
-                element={<MovieReviews />}
-              ></Route>
+              <Route path="cast" element={<MovieCast />}></Route>
+              <Route path="reviews" element={<MovieReviews />}></Route>
             </Route>
             <Route path="*" element={<NotFound />} />
           </Route>
