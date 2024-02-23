@@ -7,14 +7,11 @@ const buildLinkClass = ({ isActive }) => {
   return clsx(css.link, isActive && css.active);
 };
 const Navigation = () => {
-  const toHome = () => {
-    localStorage.clear("movies");
-  };
   return (
     <header className={css.header}>
       <ul className={css.list}>
         <li>
-          <NavLink className={buildLinkClass} to="/" onClick={toHome}>
+          <NavLink className={buildLinkClass} to="/">
             Home
           </NavLink>
         </li>

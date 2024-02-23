@@ -1,34 +1,33 @@
-import React, { useEffect, useState } from "react";
-import {
-  Link,
-  Outlet,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import requests from "../../js/api";
 import { FaArrowLeft } from "react-icons/fa";
 import css from "./MovieDetailsPage.module.css";
 import image from "../../img/no-result.jpeg";
+import toast, { Toaster } from "react-hot-toast";
 
 const MovieDetailsPage = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState({});
-  const addPage = () => setPages(pages + 1);
   useEffect(() => {
     const createData = async () => {
-      const response = await requests.getDetailsMovie(id);
-      setMovie(response.data);
+      try {
+        const response = await requests.getDetailsMovie(id);
+        setMovie(response.data);
+      } catch (error) {
+        const notify = () => toast.error(error);
+        notify();
+      }
     };
     createData();
   }, [id]);
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? "/movies";
+  const linkRef = useRef(location.state?.from ?? "/movies");
   return (
     <div className={css.container}>
-      <Link to={backLinkHref} className={css.linkBack}>
+      <NavLink to={linkRef.current} className={css.linkBack}>
         <FaArrowLeft /> Go back
-      </Link>
+      </NavLink>
       {movie.genres && (
         <div className={css.infContainer}>
           {
@@ -57,16 +56,13 @@ const MovieDetailsPage = () => {
       </div>
       <ul className={css.linkList}>
         <li>
-          <Link to={"cast"} onClick={addPage}>
-            Cast
-          </Link>
+          <NavLink to={"cast"}>Cast</NavLink>
         </li>
         <li>
-          <Link to={"reviews"} onClick={addPage}>
-            Reviews
-          </Link>
+          <NavLink to={"reviews"}>Reviews</NavLink>
         </li>
       </ul>
+      <Toaster />
       <Outlet />
     </div>
   );

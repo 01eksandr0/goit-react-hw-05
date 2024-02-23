@@ -4,6 +4,7 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import requests from "../../js/api";
 import { useSearchParams } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
+import toast, { Toaster } from "react-hot-toast";
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -13,20 +14,22 @@ const Movies = () => {
 
   useEffect(() => {
     setLoader(true);
-    setSearchParams({ name: value });
     const searchMovies = async () => {
       try {
         const response = await requests.getMoviesByWord(value);
         setMovies(response.data.results);
       } catch (error) {
-        alert(error);
+        const notify = () => toast.error(error);
+        notify();
       } finally {
         setLoader(false);
       }
     };
     searchMovies();
+  }, [searchParams]);
+  useEffect(() => {
+    setSearchParams({ name: value });
   }, [value]);
-
   const changeValue = (e) => {
     e.preventDefault();
     setValue(e.target.search.value);
@@ -35,6 +38,7 @@ const Movies = () => {
     <div>
       <SearchBar searchMovies={changeValue} />
       {isLoader && <Loader />}
+      <Toaster />
       <MoviesList movies={movies} />
     </div>
   );

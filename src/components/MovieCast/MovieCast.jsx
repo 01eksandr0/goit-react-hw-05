@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import css from "./MovieCast.module.css";
 import image from "../../img/no-result.jpeg";
 import Loader from "../Loader/Loader";
+import toast, { Toaster } from "react-hot-toast";
 
 const MovieCast = () => {
   const { id } = useParams();
@@ -17,7 +18,8 @@ const MovieCast = () => {
         const response = await requests.getCast(id);
         setCast(response.data.cast);
       } catch (error) {
-        alert(error);
+        const notify = () => toast.error(error);
+        notify();
       } finally {
         setLoader(false);
       }
@@ -49,6 +51,7 @@ const MovieCast = () => {
       ) : (
         <p>We don't have any actors for this movie</p>
       )}
+      <Toaster />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import requests from "../../js/api";
 import Loader from "../Loader/Loader";
+import toast, { Toaster } from "react-hot-toast";
 
 const MovieReviews = () => {
   const { id } = useParams();
@@ -15,7 +16,8 @@ const MovieReviews = () => {
         const response = await requests.getReviews(id);
         setReviews(response.data.results);
       } catch (error) {
-        alert(error);
+        const notify = () => toast.error(error);
+        notify();
       } finally {
         setLoader(false);
       }
@@ -37,6 +39,7 @@ const MovieReviews = () => {
       ) : (
         <p>We don't have any reviews for this movie</p>
       )}
+      <Toaster />
     </div>
   );
 };
