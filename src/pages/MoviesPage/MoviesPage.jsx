@@ -9,14 +9,14 @@ import toast, { Toaster } from "react-hot-toast";
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [isLoader, setLoader] = useState(false);
-  const [value, setValue] = useState("");
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     setLoader(true);
     const searchMovies = async () => {
       try {
-        const response = await requests.getMoviesByWord(value);
+        const response = await requests.getMoviesByWord(searchParams);
         setMovies(response.data.results);
       } catch (error) {
         const notify = () => toast.error(error.message);
@@ -27,12 +27,10 @@ const Movies = () => {
     };
     searchMovies();
   }, [searchParams]);
-  useEffect(() => {
-    setSearchParams({ name: value });
-  }, [value]);
+
   const changeValue = (e) => {
     e.preventDefault();
-    setValue(e.target.search.value);
+    setSearchParams({ name: e.target.search.value });
   };
   return (
     <div>
