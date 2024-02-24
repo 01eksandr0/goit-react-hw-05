@@ -19,7 +19,7 @@ const Movies = () => {
         const response = await requests.getMoviesByWord(value);
         setMovies(response.data.results);
       } catch (error) {
-        const notify = () => toast.error(error);
+        const notify = () => toast.error(error.message);
         notify();
       } finally {
         setLoader(false);

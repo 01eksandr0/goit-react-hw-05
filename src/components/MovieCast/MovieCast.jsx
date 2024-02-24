@@ -18,7 +18,7 @@ const MovieCast = () => {
         const response = await requests.getCast(id);
         setCast(response.data.cast);
       } catch (error) {
-        const notify = () => toast.error(error);
+        const notify = () => toast.error(error.message);
         notify();
       } finally {
         setLoader(false);

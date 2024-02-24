@@ -13,7 +13,7 @@ const HomePage = () => {
         const response = await requests.getTrendMovies();
         setMovies(response.data.results);
       } catch (error) {
-        const notify = () => toast.error(error);
+        const notify = () => toast.error(error.message);
         notify();
       }
     };

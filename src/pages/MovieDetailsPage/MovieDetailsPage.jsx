@@ -15,7 +15,7 @@ const MovieDetailsPage = () => {
         const response = await requests.getDetailsMovie(id);
         setMovie(response.data);
       } catch (error) {
-        const notify = () => toast.error(error);
+        const notify = () => toast.error(error.message);
         notify();
       }
     };
