@@ -17,7 +17,6 @@ const Movies = () => {
     setLoader(true);
     const searchMovies = async () => {
       try {
-        console.log(name);
         const response = await requests.getMoviesByWord(movieName);
         setMovies(response.data.results);
       } catch (error) {
