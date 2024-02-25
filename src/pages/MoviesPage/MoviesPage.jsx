@@ -10,12 +10,15 @@ const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [isLoader, setLoader] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const movieName = searchParams.get("name");
 
   useEffect(() => {
+    if (!movieName) return;
     setLoader(true);
     const searchMovies = async () => {
       try {
-        const response = await requests.getMoviesByWord(searchParams);
+        console.log(name);
+        const response = await requests.getMoviesByWord(movieName);
         setMovies(response.data.results);
       } catch (error) {
         const notify = () => toast.error(error.message);
