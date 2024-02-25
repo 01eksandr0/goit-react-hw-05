@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import MoviesList from "../../components/MovieList/MovieList";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import requests from "../../js/api";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -11,7 +11,7 @@ const Movies = () => {
   const [isLoader, setLoader] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const movieName = searchParams.get("name");
-
+  const location = useLocation();
   useEffect(() => {
     if (!movieName) return;
     setLoader(true);
@@ -27,7 +27,7 @@ const Movies = () => {
       }
     };
     searchMovies();
-  }, [searchParams]);
+  }, [movieName]);
 
   const changeValue = (e) => {
     e.preventDefault();

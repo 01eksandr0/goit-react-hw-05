@@ -22,7 +22,7 @@ const MovieDetailsPage = () => {
     createData();
   }, [id]);
   const location = useLocation();
-  const linkRef = useRef(location.state?.from ?? "/movies");
+  const linkRef = useRef(location.state?.from ?? "/");
   return (
     <div className={css.container}>
       <NavLink to={linkRef.current} className={css.linkBack}>
