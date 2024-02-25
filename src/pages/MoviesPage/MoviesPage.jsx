@@ -9,7 +9,6 @@ import toast, { Toaster } from "react-hot-toast";
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [isLoader, setLoader] = useState(false);
-
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -30,7 +29,9 @@ const Movies = () => {
 
   const changeValue = (e) => {
     e.preventDefault();
-    setSearchParams({ name: e.target.search.value });
+    const nextParams =
+      e.target.search.value !== "" ? { name: e.target.search.value } : {};
+    setSearchParams(nextParams);
   };
   return (
     <div>
